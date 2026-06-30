@@ -13,7 +13,7 @@ public class AppConfig {
             LoggerFactory.getLogger(AppConfig.class);
 
     @PostConstruct
-    public void init(){
+    public void init() {
         logger.info("AppConfig created!");
     }
 

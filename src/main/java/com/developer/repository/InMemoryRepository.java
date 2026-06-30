@@ -7,13 +7,13 @@ import java.util.List;
 
 public interface InMemoryRepository {
 
-    void adduser(String name, String password, String role, String personalMailId, String phoneNumber);
+    boolean adduser(String name, String password, String role, String personalMailId, String phoneNumber);
 
-    void addCourse(String name);
+    boolean addCourse(String name);
 
-    void editUser(String id, String name, String personalMailId, String phoneNumber);
+    boolean editUser(String id, String name, String personalMailId, String phoneNumber);
 
-    void deleteUser(String id);
+    boolean deleteUser(String id);
 
     List<User> getAllUsers();
 
@@ -25,6 +25,6 @@ public interface InMemoryRepository {
 
     Course getCourseById();
 
-    void addStudentToCourse(String CourseId, String UserId);
+    boolean addStudentToCourse(String CourseId, String UserId);
 
 }
