@@ -8,6 +8,8 @@ public class User {
 
     private String password;
 
+    private final String role;
+
     private String personalMailId;
 
     private final String officialMailId;
@@ -15,13 +17,14 @@ public class User {
     private String phoneNumber;
 
 
-    public User(String id, String personalMailId, String officialMailId, String phoneNumber, String name, String password) {
+    public User(String id, String role, String officialMailId, String name, String password, String personalMailId, String phoneNumber) {
         this.id = id;
-        this.personalMailId = personalMailId;
+        this.role = role;
         this.officialMailId = officialMailId;
-        this.phoneNumber = phoneNumber;
         this.name = name;
         this.password = password;
+        this.personalMailId = personalMailId;
+        this.phoneNumber = phoneNumber;
     }
 
     public String getName() {
@@ -60,7 +63,11 @@ public class User {
         return id;
     }
 
-    public String getStudentMailId() {
+    public String getRole() {
+        return role;
+    }
+
+    public String getOfficialMailId() {
         return officialMailId;
     }
 }
