@@ -3,17 +3,11 @@ package com.developer.entity;
 public class User {
 
     private final String id;
-
-    private String name;
-
-    private String password;
-
     private final String role;
-
-    private String personalMailId;
-
     private final String officialMailId;
-
+    private String name;
+    private String password;
+    private String personalMailId;
     private String phoneNumber;
 
 
@@ -69,5 +63,16 @@ public class User {
 
     public String getOfficialMailId() {
         return officialMailId;
+    }
+
+    @Override
+    public String toString() {
+        return
+                "id='" + id + '\'' +
+                        ", name='" + name + '\'' +
+                        ", role='" + role + '\'' +
+                        ", personalMailId='" + personalMailId + '\'' +
+                        ", officialMailId='" + officialMailId + '\'' +
+                        ", phoneNumber='" + phoneNumber + '\'';
     }
 }

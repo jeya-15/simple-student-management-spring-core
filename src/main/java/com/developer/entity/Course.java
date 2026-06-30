@@ -18,4 +18,10 @@ public class Course {
     public String getCourseName() {
         return courseName;
     }
+
+    @Override
+    public String toString() {
+        return "id='" + id + '\'' +
+                ", courseName='" + courseName + '\'';
+    }
 }
