@@ -1,11 +1,9 @@
 package com.developer.repository;
 
-import com.developer.entity.Course;
 import com.developer.entity.User;
-import org.slf4j.Logger;
-import org.slf4j.LoggerFactory;
 import org.springframework.stereotype.Repository;
 
+import java.util.ArrayList;
 import java.util.HashMap;
 import java.util.List;
 import java.util.Map;
@@ -33,27 +31,25 @@ public class InMemoryRepositoryImpl implements InMemoryRepository {
         String idNumber;
         String roleStr;
 
-        if(role.equals("Student")) {
+        if ("Student".equals(role)) {
             idNumber = String.format("%5s", studentIdNumber).replace(' ', '0');
             roleStr = "STU";
             studentIdNumber++;
-        }
-        else if(role.equals("Admin")){
+        } else if ("Admin".equals(role)) {
             idNumber = String.format("%5s", adminIdNumber).replace(' ', '0');
             roleStr = "ADMIN";
             adminIdNumber++;
-        }
-        else{
+        } else {
             return false;
         }
 
-        String id = roleStr+idNumber;
+        String id = roleStr + idNumber;
 
         String email = id + "@devschool.in";
 
         User user = new User(id, role, email, name, password, personalMailId, phoneNumber);
 
-        Users.put(id,user);
+        Users.put(id, user);
         return true;
 
     }
@@ -61,20 +57,20 @@ public class InMemoryRepositoryImpl implements InMemoryRepository {
     @Override
     public boolean addCourse(String name) {
 
-        if(Courses.containsValue(name)){
+        if (Courses.containsValue(name)) {
             return false;
         }
 
-        String courseStr="COURSE";
+        String courseStr = "COURSE";
 
-        String idNumber = String.format("%5s",courseIdNumber).replace(' ','0');
+        String idNumber = String.format("%5s", courseIdNumber).replace(' ', '0');
 
         courseIdNumber++;
 
-        String id = courseStr+idNumber;
+        String id = courseStr + idNumber;
 
 
-        Courses.put(id,name);
+        Courses.put(id, name);
 
         return true;
     }
@@ -82,15 +78,15 @@ public class InMemoryRepositoryImpl implements InMemoryRepository {
     @Override
     public boolean editUser(String id, String name, String personalMailId, String phoneNumber) {
         User user = Users.get(id);
-        if(user==null) return false;
-        user = new User(id,user.getRole(),user.getOfficialMailId(),name,user.getPassword(),personalMailId,phoneNumber);
+        if (user == null) return false;
+        user = new User(id, user.getRole(), user.getOfficialMailId(), name, user.getPassword(), personalMailId, phoneNumber);
         return true;
     }
 
     @Override
     public boolean deleteUser(String id) {
         User user = Users.get(id);
-        if(user==null) return false;
+        if (user == null) return false;
         Users.remove(id);
         return true;
     }
@@ -112,17 +108,27 @@ public class InMemoryRepositoryImpl implements InMemoryRepository {
 
     @Override
     public List<String> getAllCourses() {
-        return Courses.entrySet().stream().map(e->String.format("Id: "+e.getKey()+" - Course: "+e.getValue())).toList();
+        return Courses.entrySet().stream().map(e -> String.format("Id: " + e.getKey() + " - Course: " + e.getValue())).toList();
     }
 
     @Override
     public String getCourseById(String id) {
-        return "Id: "+id+" - Course: "+Courses.get(id);
+        return "Id: " + id + " - Course: " + Courses.get(id);
     }
 
     @Override
     public boolean addStudentToCourse(String CourseId, String UserId) {
-        coursesEnrolled.put(CourseId, UserId);
-        return false;
+        if (!coursesEnrolled.containsKey(CourseId)) {
+            List<String> enrolled = new ArrayList<>();
+            enrolled.add(UserId);
+            coursesEnrolled.put(CourseId, enrolled);
+            return true;
+        }
+        List<String> enrolled = coursesEnrolled.get(CourseId);
+        if (enrolled.contains(UserId)) {
+            return false;
+        }
+        enrolled.add(UserId);
+        return true;
     }
 }

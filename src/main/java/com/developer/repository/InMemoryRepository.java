@@ -1,6 +1,5 @@
 package com.developer.repository;
 
-import com.developer.entity.Course;
 import com.developer.entity.User;
 
 import java.util.List;
