@@ -19,11 +19,11 @@ public interface InMemoryRepository {
 
     List<User> getAllStudents();
 
-    User getUserById();
+    User getUserById(String id);
 
-    List<Course> getAllCourses();
+    List<String> getAllCourses();
 
-    Course getCourseById();
+    String getCourseById(String id);
 
     boolean addStudentToCourse(String CourseId, String UserId);
 
