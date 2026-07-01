@@ -6,9 +6,9 @@ import java.util.List;
 
 public interface InMemoryRepository {
 
-    boolean adduser(String name, String password, String role, String personalMailId, String phoneNumber);
+    User adduser(String name, String password, String role, String personalMailId, String phoneNumber);
 
-    boolean addCourse(String name);
+    String addCourse(String name);
 
     boolean editUser(String id, String name, String personalMailId, String phoneNumber);
 

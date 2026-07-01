@@ -26,7 +26,7 @@ public class InMemoryRepositoryImpl implements InMemoryRepository {
 
 
     @Override
-    public boolean adduser(String name, String password, String role, String personalMailId, String phoneNumber) {
+    public User adduser(String name, String password, String role, String personalMailId, String phoneNumber) {
 
         String idNumber;
         String roleStr;
@@ -40,7 +40,7 @@ public class InMemoryRepositoryImpl implements InMemoryRepository {
             roleStr = "ADMIN";
             adminIdNumber++;
         } else {
-            return false;
+            return null;
         }
 
         String id = roleStr + idNumber;
@@ -50,15 +50,15 @@ public class InMemoryRepositoryImpl implements InMemoryRepository {
         User user = new User(id, role, email, name, password, personalMailId, phoneNumber);
 
         Users.put(id, user);
-        return true;
+        return user;
 
     }
 
     @Override
-    public boolean addCourse(String name) {
+    public String addCourse(String name) {
 
         if (Courses.containsValue(name)) {
-            return false;
+            return null;
         }
 
         String courseStr = "COURSE";
@@ -72,7 +72,7 @@ public class InMemoryRepositoryImpl implements InMemoryRepository {
 
         Courses.put(id, name);
 
-        return true;
+        return "Id: " + id + " - Course: " +name;
     }
 
     @Override
