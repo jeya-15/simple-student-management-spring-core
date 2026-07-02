@@ -27,6 +27,21 @@ public class StudentServiceImpl implements StudentService {
     }
 
     @Override
+    public boolean login(String id, String password) {
+        User user = inMemoryRepository.getUserById(id);
+        if (user == null) {
+            logger.error("User not found for id:{{}} while login", id);
+            return false;
+        }
+        if(password.equals(user.getPassword())){
+            logger.info("User {} logged in",id);
+            return true;
+        }
+        logger.info("User {} failed to login",id);
+        return false;
+    }
+
+    @Override
     public String adduser(String name, String password, String role, String personalMailId, String phoneNumber) throws InterruptedException {
         User user = inMemoryRepository.adduser(name, password, role, personalMailId, phoneNumber);
         if (user != null) {

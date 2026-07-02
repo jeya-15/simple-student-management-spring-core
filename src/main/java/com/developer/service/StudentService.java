@@ -3,6 +3,9 @@ package com.developer.service;
 import java.util.List;
 
 public interface StudentService {
+
+    boolean login(String id, String password);
+
     String adduser(String name, String password, String role, String personalMailId, String phoneNumber) throws InterruptedException;
 
     String addCourse(String name);
