@@ -20,7 +20,7 @@ public class StudentServiceImpl implements StudentService {
 
     private final NotificationService phoneNotificationService;
 
-    public StudentServiceImpl(InMemoryRepository inMemoryRepository, @Qualifier("email") NotificationService emailNotificationService, @Qualifier("phone") NotificationService phoneNotificationService) {
+    public StudentServiceImpl(InMemoryRepository inMemoryRepository, NotificationService emailNotificationService, @Qualifier("phone") NotificationService phoneNotificationService) {
         this.inMemoryRepository = inMemoryRepository;
         this.emailNotificationService = emailNotificationService;
         this.phoneNotificationService = phoneNotificationService;
