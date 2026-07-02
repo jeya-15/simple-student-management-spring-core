@@ -72,7 +72,7 @@ public class InMemoryRepositoryImpl implements InMemoryRepository {
 
         Courses.put(id, name);
 
-        return "Id: " + id + " - Course: " +name;
+        return "Id: " + id + " - Course: " + name;
     }
 
     @Override

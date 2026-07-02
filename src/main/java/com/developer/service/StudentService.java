@@ -3,7 +3,7 @@ package com.developer.service;
 import java.util.List;
 
 public interface StudentService {
-    String adduser(String name, String password, String role, String personalMailId, String phoneNumber);
+    String adduser(String name, String password, String role, String personalMailId, String phoneNumber) throws InterruptedException;
 
     String addCourse(String name);
 
@@ -19,7 +19,7 @@ public interface StudentService {
 
     List<String> fetchAllCourses();
 
-    String fetchCourseById();
+    String fetchCourseById(String id);
 
-    String mapStudentToCourse();
+    String mapStudentToCourse(String userId, String courseId) throws InterruptedException;
 }
