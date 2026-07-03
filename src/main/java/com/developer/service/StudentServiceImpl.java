@@ -2,6 +2,8 @@ package com.developer.service;
 
 import com.developer.entity.User;
 import com.developer.repository.InMemoryRepository;
+import jakarta.annotation.PostConstruct;
+import jakarta.annotation.PreDestroy;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 import org.springframework.beans.factory.annotation.Qualifier;
@@ -26,19 +28,29 @@ public class StudentServiceImpl implements StudentService {
         this.phoneNotificationService = phoneNotificationService;
     }
 
+    @PostConstruct
+    public void init() {
+        logger.info("Student service is created");
+    }
+
+    @PreDestroy
+    public void destroy() {
+        logger.info("Student service is destroyed");
+    }
+
     @Override
-    public boolean login(String id, String password) {
+    public User login(String id, String password) {
         User user = inMemoryRepository.getUserById(id);
         if (user == null) {
             logger.error("User not found for id:{{}} while login", id);
-            return false;
+            return null;
         }
-        if(password.equals(user.getPassword())){
-            logger.info("User {} logged in",id);
-            return true;
+        if (password.equals(user.getPassword())) {
+            logger.info("User {} logged in", id);
+            return user;
         }
-        logger.info("User {} failed to login",id);
-        return false;
+        logger.info("User {} failed to login", id);
+        return null;
     }
 
     @Override
@@ -57,9 +69,9 @@ public class StudentServiceImpl implements StudentService {
     @Override
     public String addCourse(String name) {
 
-        if(inMemoryRepository.getAllCourses().contains(name)){
-            logger.info("Duplicate Course entry : {}",name);
-            return "Course name already exists: "+name;
+        if (inMemoryRepository.getAllCourses().contains(name)) {
+            logger.info("Duplicate Course entry : {}", name);
+            return "Course name already exists: " + name;
         }
 
         String course = inMemoryRepository.addCourse(name);
@@ -80,13 +92,13 @@ public class StudentServiceImpl implements StudentService {
             logger.error("User not found for id:{{}} while updating", id);
             return "User id { " + id + " } not found!";
         }
-        if(inMemoryRepository.editUser(id,name,personalMailId,phoneNumber)){
+        if (inMemoryRepository.editUser(id, name, personalMailId, phoneNumber)) {
             logger.info("User successfully edited : {{}}", id);
             return "User successfully edited : " + id;
         }
 
-        logger.error("Failed to update User {}",id);
-        return "Failed to update user :"+id;
+        logger.error("Failed to update User {}", id);
+        return "Failed to update user :" + id;
     }
 
     @Override
@@ -133,14 +145,14 @@ public class StudentServiceImpl implements StudentService {
             logger.error("User not found for id:{{}}", id);
             return "User id { " + id + " } not found!";
         }
-        logger.info("User fetched : {{}}",user);
+        logger.info("User fetched : {{}}", user);
         return user.toString();
     }
 
     @Override
     public List<String> fetchAllCourses() {
         List<String> courseList = inMemoryRepository.getAllCourses();
-        if(courseList.isEmpty()){
+        if (courseList.isEmpty()) {
             logger.info("Course List is Empty!");
             return List.of();
         }
@@ -151,11 +163,11 @@ public class StudentServiceImpl implements StudentService {
     @Override
     public String fetchCourseById(String id) {
         String course = inMemoryRepository.getCourseById(id);
-        if(course.isEmpty()){
-            logger.info("Course id is not found : {{}}",id);
-            return "Course not found :"+id;
+        if (course.isEmpty()) {
+            logger.info("Course id is not found : {{}}", id);
+            return "Course not found :" + id;
         }
-        logger.info("Course fetched : {{}}",course);
+        logger.info("Course fetched : {{}}", course);
         return course;
     }
 
@@ -169,17 +181,17 @@ public class StudentServiceImpl implements StudentService {
         }
 
         String course = inMemoryRepository.getCourseById(courseId);
-        if(course.isEmpty()){
-            logger.info("Course id is not found for mapping : {{}}",courseId);
-            return "Course not found :"+courseId;
+        if (course.isEmpty()) {
+            logger.info("Course id is not found for mapping : {{}}", courseId);
+            return "Course not found :" + courseId;
         }
 
-        if(inMemoryRepository.addStudentToCourse(userId,courseId)){
-            logger.info("Student id {} is added to the Course {}",userId,course);
-            emailNotificationService.send(user.getOfficialMailId(),String.format("Hii %s, You have been enrolled for the course %s",user.getName(),course));
-            return "Student id "+userId+"is added to the Course "+courseId;
+        if (inMemoryRepository.addStudentToCourse(userId, courseId)) {
+            logger.info("Student id {} is added to the Course {}", userId, course);
+            emailNotificationService.send(user.getOfficialMailId(), String.format("Hii %s, You have been enrolled for the course %s", user.getName(), course));
+            return "Student id " + userId + "is added to the Course " + courseId;
         }
-        logger.error("Failed to add Student Id {} to the Course {}",userId,course);
-        return "Unable to add Student id "+userId+"to the Course "+course;
+        logger.error("Failed to add Student Id {} to the Course {}", userId, course);
+        return "Unable to add Student id " + userId + "to the Course " + course;
     }
 }

@@ -1,10 +1,12 @@
 package com.developer.service;
 
+import com.developer.entity.User;
+
 import java.util.List;
 
 public interface StudentService {
 
-    boolean login(String id, String password);
+    User login(String id, String password);
 
     String adduser(String name, String password, String role, String personalMailId, String phoneNumber) throws InterruptedException;
 

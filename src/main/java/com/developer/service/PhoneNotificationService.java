@@ -1,5 +1,7 @@
 package com.developer.service;
 
+import jakarta.annotation.PostConstruct;
+import jakarta.annotation.PreDestroy;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 import org.springframework.beans.factory.annotation.Qualifier;
@@ -11,6 +13,16 @@ public class PhoneNotificationService implements NotificationService {
 
     private final Logger logger = LoggerFactory.getLogger(PhoneNotificationService.class);
 
+
+    @PostConstruct
+    public void init() {
+        logger.info("Phone notification service is created");
+    }
+
+    @PreDestroy
+    public void destroy() {
+        logger.info("Phone notification service is destroyed");
+    }
 
     @Override
     public void send(String recipient, String msg) throws InterruptedException {

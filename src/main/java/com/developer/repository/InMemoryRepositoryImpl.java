@@ -1,6 +1,7 @@
 package com.developer.repository;
 
 import com.developer.entity.User;
+import jakarta.annotation.PostConstruct;
 import org.springframework.stereotype.Repository;
 
 import java.util.ArrayList;
@@ -23,6 +24,13 @@ public class InMemoryRepositoryImpl implements InMemoryRepository {
     int adminIdNumber = 1;
 
     int courseIdNumber = 1;
+
+
+    @PostConstruct
+    public void init(){
+        User user = new User("Admin0","Admin","admin@xyz.com","Admin raj","Admin#123","Admin@xyz.com","1234567890");
+        Users.put("Admin0",user);
+    }
 
 
     @Override
