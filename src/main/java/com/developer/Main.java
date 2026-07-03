@@ -23,6 +23,9 @@ public class Main {
         System.out.println("Hello and welcome!");
 
         while (true) {
+
+            boolean exit = false;
+
             if (user == null) {
                 user = controller.login();
                 System.out.println("Welcome Back!");
@@ -40,6 +43,7 @@ public class Main {
                 System.out.println("9) Fetch course by Id");
                 System.out.println("10) Register Course");
                 System.out.println("11) Logout");
+                System.out.println("12) Exit the app");
 
                 String choice = sc.next();
 
@@ -98,6 +102,11 @@ public class Main {
                         break;
                     }
 
+                    case "12":{
+                        user = null;
+                        exit=true;
+                    }
+
                     default: {
                         System.out.println("Invalid Option");
                         break;
@@ -107,7 +116,8 @@ public class Main {
             else if("Student".equals(user.getRole())){
                 System.out.println("1) Fetch all Courses");
                 System.out.println("2) Fetch course by Id");
-                System.out.println("4) Logout");
+                System.out.println("3) Logout");
+                System.out.println("4) Exit the app");
 
                 String choice = sc.next();
 
@@ -121,10 +131,14 @@ public class Main {
                         break;
                     }
 
-
                     case "3": {
                         user = null;
                         break;
+                    }
+
+                    case "4":{
+                        user = null;
+                        exit=true;
                     }
 
                     default: {
@@ -132,6 +146,10 @@ public class Main {
                         break;
                     }
                 }
+            }
+
+            if(exit){
+                break;
             }
 
         }

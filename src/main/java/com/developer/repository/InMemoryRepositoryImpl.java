@@ -2,6 +2,8 @@ package com.developer.repository;
 
 import com.developer.entity.User;
 import jakarta.annotation.PostConstruct;
+import org.slf4j.Logger;
+import org.slf4j.LoggerFactory;
 import org.springframework.stereotype.Repository;
 
 import java.util.ArrayList;
@@ -12,6 +14,7 @@ import java.util.Map;
 @Repository
 public class InMemoryRepositoryImpl implements InMemoryRepository {
 
+    private final Logger logger = LoggerFactory.getLogger(InMemoryRepositoryImpl.class);
 
     private final Map<String, User> Users = new HashMap<>();
 
@@ -28,6 +31,7 @@ public class InMemoryRepositoryImpl implements InMemoryRepository {
 
     @PostConstruct
     public void init(){
+        logger.info("User Initialized!");
         User user = new User("Admin0","Admin","admin@xyz.com","Admin raj","Admin#123","Admin@xyz.com","1234567890");
         Users.put("Admin0",user);
     }
