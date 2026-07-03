@@ -92,7 +92,7 @@ public class StudentController {
         System.out.println(result);
     }
 
-    public void editUser() throws InterruptedException {
+    public void editUser()  {
         System.out.println("Enter User Id:");
         String id = sc.next();
 
@@ -116,12 +116,12 @@ public class StudentController {
             System.out.println(result);
         } catch (InterruptedException e) {
             System.out.println("Update of User interrupted.");
-            throw new RuntimeException(e);
+            Thread.currentThread().interrupt();
 
         }
     }
 
-    public void deleteUser() throws InterruptedException {
+    public void deleteUser()  {
         System.out.println("Enter User Id:");
         String id = sc.next();
 
@@ -130,7 +130,7 @@ public class StudentController {
             System.out.println(result);
         } catch (InterruptedException e) {
             System.out.println("Deletion of User interrupted.");
-            throw new RuntimeException(e);
+            Thread.currentThread().interrupt();
         }
     }
 
