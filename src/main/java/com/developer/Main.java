@@ -45,7 +45,9 @@ public class Main {
                 System.out.println("11) Logout");
                 System.out.println("12) Exit the app");
 
-                String choice = sc.next();
+                System.out.print("Enter the choice:");
+
+                String choice = sc.nextLine();
 
                 switch (choice) {
                     case "1": {
@@ -105,6 +107,7 @@ public class Main {
                     case "12":{
                         user = null;
                         exit=true;
+                        break;
                     }
 
                     default: {
@@ -119,7 +122,9 @@ public class Main {
                 System.out.println("3) Logout");
                 System.out.println("4) Exit the app");
 
-                String choice = sc.next();
+                System.out.print("Enter the choice:");
+
+                String choice = sc.nextLine();
 
                 switch (choice) {
                     case "1": {
@@ -139,6 +144,7 @@ public class Main {
                     case "4":{
                         user = null;
                         exit=true;
+                        break;
                     }
 
                     default: {

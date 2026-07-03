@@ -92,6 +92,7 @@ public class InMemoryRepositoryImpl implements InMemoryRepository {
         User user = Users.get(id);
         if (user == null) return false;
         user = new User(id, user.getRole(), user.getOfficialMailId(), name, user.getPassword(), personalMailId, phoneNumber);
+        Users.put(id,user);
         return true;
     }
 

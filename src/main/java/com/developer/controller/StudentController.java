@@ -35,11 +35,11 @@ public class StudentController {
     }
 
     public User login() {
-        System.out.println("Enter Id:");
-        String id = sc.next();
+        System.out.print("Enter Id:");
+        String id = sc.nextLine();
 
-        System.out.println("Enter Password:");
-        String password = sc.next();
+        System.out.print("Enter Password:");
+        String password = sc.nextLine();
 
         User user = studentService.login(id, password);
 
@@ -53,20 +53,20 @@ public class StudentController {
     }
 
     public void adduser() {
-        System.out.println("Enter Name:");
-        String name = sc.next();
+        System.out.print("Enter Name:");
+        String name = sc.nextLine();
 
-        System.out.println("Enter Password:");
-        String password = sc.next();
+        System.out.print("Enter Password:");
+        String password = sc.nextLine();
 
-        System.out.println("Enter Role:");
-        String role = sc.next();
+        System.out.print("Enter Role:");
+        String role = sc.nextLine();
 
-        System.out.println("Enter Personal Mail Id:");
-        String personalMailId = sc.next();
+        System.out.print("Enter Personal Mail Id:");
+        String personalMailId = sc.nextLine();
 
-        System.out.println("Enter Phone Number:");
-        String phoneNumber = sc.next();
+        System.out.print("Enter Phone Number:");
+        String phoneNumber = sc.nextLine();
 
         try {
             String result = studentService.adduser(
@@ -84,8 +84,7 @@ public class StudentController {
     }
 
     public void addCourse() {
-        System.out.println("Enter Course Name:");
-        sc.nextLine();
+        System.out.print("Enter Course Name:");
         String courseName = sc.nextLine();
 
         String result = studentService.addCourse(courseName);
@@ -93,17 +92,17 @@ public class StudentController {
     }
 
     public void editUser()  {
-        System.out.println("Enter User Id:");
-        String id = sc.next();
+        System.out.print("Enter User Id:");
+        String id = sc.nextLine();
 
-        System.out.println("Enter New Name:");
-        String name = sc.next();
+        System.out.print("Enter New Name:");
+        String name = sc.nextLine();
 
-        System.out.println("Enter New Personal Mail Id:");
-        String personalMailId = sc.next();
+        System.out.print("Enter New Personal Mail Id:");
+        String personalMailId = sc.nextLine();
 
-        System.out.println("Enter New Phone Number:");
-        String phoneNumber = sc.next();
+        System.out.print("Enter New Phone Number:");
+        String phoneNumber = sc.nextLine();
 
         try {
             String result = studentService.editUser(
@@ -122,8 +121,8 @@ public class StudentController {
     }
 
     public void deleteUser()  {
-        System.out.println("Enter User Id:");
-        String id = sc.next();
+        System.out.print("Enter User Id:");
+        String id = sc.nextLine();
 
         try {
             String result = studentService.deleteUser(id);
@@ -163,8 +162,8 @@ public class StudentController {
     }
 
     public void fetchUserById() {
-        System.out.println("Enter User Id:");
-        String id = sc.next();
+        System.out.print("Enter User Id:");
+        String id = sc.nextLine();
 
         String user = studentService.fetchUserById(id);
         System.out.println(user);
@@ -185,8 +184,8 @@ public class StudentController {
     }
 
     public void fetchCourseById() {
-        System.out.println("Enter Course Id:");
-        String id = sc.next();
+        System.out.print("Enter Course Id:");
+        String id = sc.nextLine();
 
         String course = studentService.fetchCourseById(id);
         System.out.println(course);
@@ -194,22 +193,22 @@ public class StudentController {
 
     public void mapStudentToCourse() {
 
-        System.out.println("List of courses :");
+        System.out.print("List of courses :");
 
         List<String> courses = studentService.fetchAllCourses();
 
         if (courses.isEmpty()) {
-            System.out.println("No courses found.");
+            System.out.print("No courses found.");
             return;
         }
 
         courses.forEach(System.out::println);
 
         System.out.println("Enter User Id:");
-        String userId = sc.next();
+        String userId = sc.nextLine();
 
         System.out.println("Enter Course Id:");
-        String courseId = sc.next();
+        String courseId = sc.nextLine();
 
         try {
             String result = studentService.mapStudentToCourse(userId, courseId);

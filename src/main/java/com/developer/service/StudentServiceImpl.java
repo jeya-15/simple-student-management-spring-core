@@ -93,7 +93,7 @@ public class StudentServiceImpl implements StudentService {
             return "User id { " + id + " } not found!";
         }
         if (inMemoryRepository.editUser(id, name, personalMailId, phoneNumber)) {
-            emailNotificationService.send(user.getOfficialMailId(), "Hi, " + user.getName() + " you have been successfully updated!\n Your Details :" + user);
+            emailNotificationService.send(user.getOfficialMailId(), "Hi, " + name + " you have been successfully updated!\n Your Details :" + user);
             logger.info("User successfully edited : {{}}", id);
             return "User successfully edited : " + id;
         }
