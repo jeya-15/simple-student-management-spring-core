@@ -12,9 +12,9 @@ public interface StudentService {
 
     String addCourse(String name);
 
-    String editUser(String id, String name, String personalMailId, String phoneNumber);
+    String editUser(String id, String name, String personalMailId, String phoneNumber) throws InterruptedException;
 
-    String deleteUser(String id);
+    String deleteUser(String id) throws InterruptedException;
 
     List<String> fetchAllUsers();
 

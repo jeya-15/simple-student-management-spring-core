@@ -58,7 +58,7 @@ public class StudentServiceImpl implements StudentService {
         User user = inMemoryRepository.adduser(name, password, role, personalMailId, phoneNumber);
         if (user != null) {
             emailNotificationService.send(user.getPersonalMailId(), "Hi, " + user.getName() + " you have been successfully registered to the system!\n Your Details :" + user);
-            phoneNotificationService.send(user.getPersonalMailId(), "Hi, " + user.getName() + " you have been successfully registered to the system!\n Your Details :" + user);
+            phoneNotificationService.send(user.getPhoneNumber(), "Hi, " + user.getName() + " you have been successfully registered to the system!\n Your Details :" + user);
             logger.info("User created :{{}}", user);
             return "User added Successfully - UserId is " + user.getId();
         }
@@ -86,13 +86,14 @@ public class StudentServiceImpl implements StudentService {
     }
 
     @Override
-    public String editUser(String id, String name, String personalMailId, String phoneNumber) {
+    public String editUser(String id, String name, String personalMailId, String phoneNumber) throws InterruptedException {
         User user = inMemoryRepository.getUserById(id);
         if (user == null) {
             logger.error("User not found for id:{{}} while updating", id);
             return "User id { " + id + " } not found!";
         }
         if (inMemoryRepository.editUser(id, name, personalMailId, phoneNumber)) {
+            emailNotificationService.send(user.getOfficialMailId(), "Hi, " + user.getName() + " you have been successfully updated!\n Your Details :" + user);
             logger.info("User successfully edited : {{}}", id);
             return "User successfully edited : " + id;
         }
@@ -102,7 +103,7 @@ public class StudentServiceImpl implements StudentService {
     }
 
     @Override
-    public String deleteUser(String id) {
+    public String deleteUser(String id) throws InterruptedException {
         User user = inMemoryRepository.getUserById(id);
         if (user == null) {
             logger.error("User not found for id:{{}} while deleting", id);
@@ -110,6 +111,7 @@ public class StudentServiceImpl implements StudentService {
         }
         if (inMemoryRepository.deleteUser(id)) {
             logger.info("User successfully deleted! : {{}}", user);
+            emailNotificationService.send(user.getPersonalMailId(), "Hi, " + user.getName() + " your account has been deleted");
             return "User successfully deleted: " + user;
         }
         logger.error("Can't delete the User :{{}}", user);

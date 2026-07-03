@@ -92,7 +92,7 @@ public class StudentController {
         System.out.println(result);
     }
 
-    public void editUser() {
+    public void editUser() throws InterruptedException {
         System.out.println("Enter User Id:");
         String id = sc.next();
 
@@ -105,22 +105,33 @@ public class StudentController {
         System.out.println("Enter New Phone Number:");
         String phoneNumber = sc.next();
 
-        String result = studentService.editUser(
-                id,
-                name,
-                personalMailId,
-                phoneNumber
-        );
+        try {
+            String result = studentService.editUser(
+                    id,
+                    name,
+                    personalMailId,
+                    phoneNumber
+            );
 
-        System.out.println(result);
+            System.out.println(result);
+        } catch (InterruptedException e) {
+            System.out.println("Update of User interrupted.");
+            throw new RuntimeException(e);
+
+        }
     }
 
-    public void deleteUser() {
+    public void deleteUser() throws InterruptedException {
         System.out.println("Enter User Id:");
         String id = sc.next();
 
-        String result = studentService.deleteUser(id);
-        System.out.println(result);
+        try {
+            String result = studentService.deleteUser(id);
+            System.out.println(result);
+        } catch (InterruptedException e) {
+            System.out.println("Deletion of User interrupted.");
+            throw new RuntimeException(e);
+        }
     }
 
     public void fetchAllUsers() {
